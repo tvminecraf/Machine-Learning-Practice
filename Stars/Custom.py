@@ -1,4 +1,5 @@
 import numpy as np
+import pandas as pd
 from sklearn.metrics import (
     classification_report,
     f1_score,
@@ -13,7 +14,6 @@ from sklearn.neighbors import KNeighborsClassifier
 from matplotlib import pyplot
 from seaborn import heatmap
 
-
 def Matrix(test:list, predict:list):
     pyplot.figure(figsize=(15, 8))
     heatmap(confusion_matrix(test, predict), annot=True)
@@ -21,7 +21,6 @@ def Matrix(test:list, predict:list):
     pyplot.xlabel("Actual", fontsize=13)
     pyplot.title("Confusion Matrix", fontsize=17)
     pyplot.show()
-
 
 def Summary(Model_Name:str, test:list, predict:list):
     print(
@@ -40,7 +39,6 @@ def Summary(Model_Name:str, test:list, predict:list):
         f"Confusion Matrix for {Model_Name}:",
         confusion_matrix(test, predict),
     )
-
 
 def All(Model_Name: str, test: list, predict: list):
     Summary(Model_Name, test, predict)
@@ -72,4 +70,15 @@ def Knn_Greedy(X_train: list,X_test: list,y_train: list,y_test: list,iter: bool 
         return score, KNeighborsClassifier_Max_neighbors
     else:
         return "Error: return_mode must be 0, 1 or 2"
+
+def Normalize(list: list):
+    diff = max(list) - min(list)
+    if diff == 0:
+        return list
+    for i in range(len(list)):
+        x = list[i]
+        x = (x - min()) / diff
+
+def deNormalize():
+    pass
 
